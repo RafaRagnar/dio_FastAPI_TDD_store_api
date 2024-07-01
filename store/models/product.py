@@ -4,3 +4,4 @@ from store.schemas.product import ProductIn
 
 class ProductModel(ProductIn, CreateBaseModel):
     ...
+    
