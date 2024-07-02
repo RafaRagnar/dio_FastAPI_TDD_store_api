@@ -7,7 +7,12 @@ from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from store.core.exceptions import NotFoundException
 from store.db.mongo import db_client
 from store.models.product import ProductModel
-from store.schemas.product import ProductIn, ProductOut, ProductUpdate, ProductUpdateOut
+from store.schemas.product import (  # E501
+    ProductIn,
+    ProductOut,
+    ProductUpdate,
+    ProductUpdateOut,
+)
 
 
 class ProductUsecase:
@@ -38,8 +43,8 @@ class ProductUsecase:
         result = await self.collection.find_one_and_update(
             filter={"id": id},
             update={"$set": body.model_dump(exclude_none=True)},
-            return_document=pymongo.ReturnDocument.AFTER
-            )
+            return_document=pymongo.ReturnDocument.AFTER,
+        )
 
         return ProductUpdateOut(**result)
 
@@ -54,5 +59,4 @@ class ProductUsecase:
         return True if result.deleted_count > 0 else False
 
 
-product_usecase = ProductUsecase()
 product_usecase = ProductUsecase()
